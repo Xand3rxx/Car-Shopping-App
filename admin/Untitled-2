@@ -1,0 +1,141 @@
+<tbody>
+                                            <tr>
+                                                <td><?php echo $res["id"]; ?></td>
+                                                <td><?php echo $res["vcreation_date"]; ?></td>
+                                                <td><span class="label label-info"><?php echo $res["vorder_status"]; ?></span>
+                                                </td>
+                                                <td><a class="btn btn-primary btn-sm view">View</a>
+                                                </td>
+                                                <input id="sda" value="<?php echo $res["id"]; ?>" type="hidden">
+                                            </tr>
+
+                                        </tbody>
+                                        
+                                        
+function displayOrder()
+{
+    require $_SERVER["DOCUMENT_ROOT"].'/cars/admin/config.php';
+if(isset($_SESSION["userid"]))
+{
+    $id = ($_SESSION["userid"]);
+    $sql = mysqli_query($vcon, "SELECT * FROM vorder WHERE vuser_id = '".$id."'");
+    $row = mysqli_num_rows($sql);
+
+    if($row > 0)
+    {
+    
+        ?>
+        <div class="col-md-12 card">
+            <br>
+                        <h1>My orders</h1>
+
+                        <p>Your orders on one place.</p>
+                        <p >If you have any questions, please feel free to contact us, our customer service center is working for you 24/7.</p>
+
+                        <hr>
+
+                        <div class="table-responsive">
+                            <!--<table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                -->
+                             <select  id="sda" class="form-control">
+                                              <option value="">Select Employee</option>
+                                <?php 
+                                    $count = 1;
+                                        while($res = mysqli_fetch_array($sql))
+                                    {
+                                            echo '<option value="'.$res["id"].'">'.$res["vcreation_date"].'</option>';
+                                        ?>
+                                            
+                                    
+                                         
+                                        <?php
+                                    }
+        
+                                    }
+                                    else
+                                    {
+                                        ?>
+                                            
+                                                <div class="col-md-6 card">
+                                                    <br><center><h3>You have no previous orders</h3>
+                                                    <a class="btn btn-primary" href="../cars/index.php">Buy a car today!!!</a></center><br>
+                                                </div>
+                                            
+                                        <?php
+                                    }
+                                
+                                ?>
+                                <script>
+                                   $(document).ready(function(){
+                                    
+                                        $(document).on('click', '.view', function(){
+                                           var sh = $("#sda").val();
+                                            alert(sh);
+                                            if(sh != '')
+                                              {
+                                               $.ajax({
+                                                url:"admin/view.php",
+                                                method:"POST",
+                                                data:{id:sh},
+                                                dataType:"JSON",
+                                                success:function(data)
+                                                {
+                                                 $('#car_details').css("display", "block");
+                                                 $('#vvname').text(data.vname);
+                                                 $('#vvprice').text(data.vprice);
+                                                 $('#vvquan').text(data.vquan);
+                                                    var t = parseInt(data.vprice) * parseInt(data.vquan);
+                                                 $('#total').text(t);
+                                             
+                                                }
+                                               })
+                                              }
+                                              else
+                                              {
+                                     
+                                               $('#car_details').css("display", "none");
+                                              }
+                                        });
+                                    });
+                                </script>
+                                 </select>
+                            <a class="btn btn-primary btn-sm view">View</a>
+<!--                            </table>-->
+                        </div>
+            <br class="clear-fix">
+                        <div class="table-responsive" id="car_details" style="display:none">
+                            <p class="well">Order Details</p>
+                           <table class="table table-bordered">
+                            <tr>
+                             <td width="10%" align="right"><b>Vehicle Name</b></td>
+                             <td width="90%"><span id="vvname"></span></td>
+                            </tr>
+                            <tr>
+                             <td width="10%" align="right"><b>Vehicle Price</b></td>
+                             <td width="90%"><span id="vvprice"></span></td>
+                            </tr>
+
+                            <tr>
+                             <td width="10%" align="right"><b>Quantity</b></td>
+                             <td width="90%"><span id="vvquan"></span></td>
+                            </tr>
+                            <tr>
+                             <td width="10%" align="right"><b>Total</b></td>
+                             <td width="90%"><span id="total"></span></td>
+                            </tr>
+                           </table>
+                        </div>
+                    </div>
+    <?php
+    
+    
+}
+}
