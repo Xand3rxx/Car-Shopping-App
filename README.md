@@ -18,7 +18,7 @@ Refresh browser page when the alert prompts you to after your credentials have b
 3. Navigate to `admin/index.php` to access admin dashboard.
 
 
-# Not that
+# Note that
 Due to the time I started this project, and I had a deadline to meet up with, so some feaures were left out like
 1. User error messages.
 2. Proper validations.
