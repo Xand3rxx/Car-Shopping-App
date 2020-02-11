@@ -23,10 +23,11 @@ if(isset($_POST['vid']))
             if($is_available < 1)  
             {  
                  $car_array = array(  
-                      'vid'               =>     $_POST["vid"],  
-                      'vname'               =>     $_POST["vname"],  
-                      'vprice'               =>     $_POST["vprice"],  
-                      'vquan'          =>     $_POST["vquan"]  
+                      'vid'       =>    $_POST["vid"],  
+                      'vname'     =>    $_POST["vname"],  
+                      'vpic'      =>    $_POST["vpic"],  
+                      'vprice'    =>    $_POST["vprice"],  
+                      'vquan'     =>    $_POST["vquan"]  
                  );  
                  $_SESSION["carCart"][] = $car_array;  
             }  
@@ -34,10 +35,11 @@ if(isset($_POST['vid']))
        else  
        {  
             $car_array = array(  
-                 'vid'               =>     $_POST["vid"],  
-                 'vname'               =>     $_POST["vname"],  
-                 'vprice'               =>     $_POST["vprice"],  
-                 'vquan'          =>     $_POST["vquan"]  
+                 'vid'            =>    $_POST["vid"],  
+                 'vname'          =>    $_POST["vname"],  
+                 'vpic'           =>    $_POST["vpic"],  
+                 'vprice'         =>    $_POST["vprice"],  
+                 'vquan'          =>    $_POST["vquan"]  
             );  
             $_SESSION["carCart"][] = $car_array;  
        }  
@@ -51,7 +53,9 @@ if(isset($_POST['vid']))
                 {  
                      unset($_SESSION["carCart"][$keys]);  
                      $message = '<label class="text-success">Vehicle Removed</label>';  
-                }  
+ 
+                } 
+               
            }  
       } 
     
@@ -70,9 +74,10 @@ if(isset($_POST['vid']))
            <table class="table table-bordered">  
                 <tr>  
                      <th width="40%">Product Name</th>  
-                     <th width="10%">Quantity</th>  
+                     <th width="10%">Image</th>  
+                     <th width="5%">Quantity</th>  
                      <th width="20%">Price</th>  
-                     <th width="15%">Total</th>  
+                     <th width="20%">Total</th>  
                      <th width="5%">Action</th>  
                 </tr>  
            ';
@@ -84,10 +89,11 @@ if(isset($_POST['vid']))
                 $cartTable .= '  
                      <tr>  
                           <td>'.$values["vname"].'</td>  
-                          <td><input type="text" name="vquan[]" id="vquan'.$values["vid"].'" value="'.$values["vquan"].'" class="form-control quantity" data-vid="'.$values["vid"].'" /></td>  
+                          <td><img src="resources/uploads/'.$values["vpic"].'" style="width: 50px; height: 40px;"></td> 
+                          <td><input type="tel" class="text-center quantity" maxlength="2" name="vquan[]" id="vquan'.$values["vid"].'" value="'.$values["vquan"].'" class="form-control quantity" data-vid="'.$values["vid"].'" /></td>  
                           <td align="right">₦ '.$values["vprice"].'</td>  
                           <td align="right">₦ '.number_format($values["vquan"] * $values["vprice"], 2).'</td>  
-                          <td><button name="delete" class="btn btn-danger btn-xs delete" id="'.$values["vid"].'">Remove</button></td>  
+                          <td><button name="delete" class="btn btn-danger btn-xs delete" id="'.$values["vid"].'"><span class="glyphicon glyphicon-remove"></span></button></td>  
                      </tr>  
                 ';  
                 $total = $total + ($values["vquan"] * $values["vprice"]);  

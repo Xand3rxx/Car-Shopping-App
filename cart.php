@@ -38,9 +38,10 @@
        <table class="table table-bordered">  
             <tr>  
                  <th width="40%">Vehicle Name</th>  
-                 <th width="10%">Quantity</th>  
+                 <th width="10%">Image</th>  
+                 <th width="5%">Quantity</th>  
                  <th width="20%">Price</th>  
-                 <th width="15%">Total</th>  
+                 <th width="20%">Total</th>  
                  <th width="5%">Action</th>  
             </tr>  
             <?php  
@@ -52,7 +53,8 @@
             ?>  
             <tr>  
                  <td><?php echo $values["vname"]; ?></td>  
-                 <td><input type="text" name="vquan[]" id="vquan<?php echo $values["vid"]; ?>" value="<?php echo $values["vquan"]; ?>" data-vid="<?php echo $values["vid"]; ?>" class="form-control vquan" /></td>  
+                 <td><img src="resources/uploads/<?php echo $values["vpic"]; ?>" style="width: 50px; height: 40px;"></td>  
+                 <td><input type="tel" class="text-center quantity" maxlength="2" name="vquan[]" id="vquan<?php echo $values["vid"]; ?>" value="<?php echo $values["vquan"]; ?>" data-vid="<?php echo $values["vid"]; ?>" class="form-control vquan" /></td>  
                  <td align="right">₦ <?php echo $values["vprice"]; ?></td>  
                  <td align="right">₦ <?php echo number_format($values["vquan"] * $values["vprice"], 2); ?></td>  
                  <td><button name="delete" class="btn btn-danger btn-xs delete" id="<?php echo $values["vid"]; ?>"><span class="glyphicon glyphicon-remove"></span></button></td>  

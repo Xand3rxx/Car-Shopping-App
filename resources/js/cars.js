@@ -1,4 +1,13 @@
 $(document).ready(function(){
+
+    //Prevent characters or string asides number in ohone number input field 
+    $(".quantity").on("keypress keyup blur", function(event) {
+        $(this).val($(this).val().replace(/[^\d].+/, ""));
+        if ((event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    }); 
+    
     $("#his").hide();
     var count = 1;
    
@@ -30,17 +39,19 @@ $(document).ready(function(){
            var vid = $(this).attr("id");  
            var vname = $('#vname'+vid).val();  
            var vprice = $('#vprice'+vid).val();  
-        console.log(vid, vname, vprice);
+           var vpic = $('#vpic'+vid).val();  
+            // console.log(vid, vname, vprice, vpic);
+            // return;
                 $.ajax({  
                      url:"../cars/cartLogic.php",  
                      method:"POST",  
                      dataType:"json",  
-                     data:{"vid":vid, "vname":vname, "vprice":vprice, "vquan": 1, "add": 1},  
+                     data:{"vid":vid, "vname":vname, "vprice":vprice, "vpic":vpic, "vquan": 1, "add": 1},  
                      success:function(data)  
-                     {  
+                     {                       
                           $('#cartTable').html(data.cartTable);  
                           $('#cac').text(data.cart_item);  
-                          alert("Vehicle added to Cart");  
+                          alert("Vehicle added to cart");  
                      }  
                 });  
       
@@ -48,17 +59,20 @@ $(document).ready(function(){
     
     $(document).on('click', '.delete', function(){  
            var vid = $(this).attr("id");  
-          
+            var cart_value = $('#cac').text();
            if(confirm("Are you sure you want to remove this product?"))  
            {  
                 $.ajax({  
                      url:"../cars/cartLogic.php",  
                      method:"POST",  
                      dataType:"json",  
-                     data:{"vid":vid, "add":2},  
-                     success:function(data){  
+                     data:{"vid":vid, "add":2, "vquan": 1},  
+                     success:function(data){                    
+                        //  $(this).closest("tr").remove();
                           $('#cartTable').html(data.cartTable);  
-                          $('.cac').text(data.cart_item);  
+                          $('#cac').text(data.cart_item);  
+                          alert("Vehicle Removed from cart");  
+
                      }  
                 });  
            }  
@@ -165,6 +179,7 @@ jQuery.fn.forceNumeric = function () {
      });
  }
 
+ 
 
 function adminLogin()
 {

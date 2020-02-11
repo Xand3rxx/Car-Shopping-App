@@ -30,7 +30,7 @@ $(document).ready(function(){
            var vid = $(this).attr("id");  
            var vname = $('#vname'+vid).val();  
            var vprice = $('#vprice'+vid).val();  
-        console.log(vid, vname, vprice);
+        // console.log(vid, vname, vprice);
                 $.ajax({  
                      url:"https://carshoppingapp.000webhostapp.com/cars/cartLogic.php",  
                      method:"POST",  

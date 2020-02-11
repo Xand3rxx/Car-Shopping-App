@@ -213,6 +213,7 @@ function cars()
                       <br><ul class="list-group">
                           <input type="hidden" id="vname<?php echo $res["id"]; ?>" value="<?php echo $res["vname"]; ?>" /> 
                           <input type="hidden" id="vprice<?php echo $res["id"]; ?>" value="<?php echo $res["vprice"]; ?>" /> 
+                          <input type="hidden" id="vpic<?php echo $res["id"]; ?>" value="<?php echo $res["vpic"]; ?>" /> 
                           <center style="margin-top: 15px; margin-bottom: 15px"><?php echo "<img src=".'resources/uploads/'.$res['vpic']." width='360' height='230' >"; ?></center>
                           <li class="list-group-item"><center><h4><strong><?php echo $res["vname"]; ?></strong></h4></center></li>
                           <li class="list-group-item"><center><h5><strong>₦<?php echo $res["vprice"]; ?></strong></h5></center></li>
@@ -263,7 +264,13 @@ function carDetail($idnum)
                                      <li class="list-group-item"><strong>Description: </strong><br><?php echo $res["vdesc"]; ?></li>
                                      <input type="hidden" id="vname<?php echo $res["id"]; ?>" value="<?php echo $res["vname"]; ?>" /> 
                                      <input type="hidden" id="vprice<?php echo $res["id"]; ?>" value="<?php echo $res["vprice"]; ?>" /> 
-                                      <br><center><a id="<?php echo $res["id"]; ?>" type="submit" class="btn btn-success addCar"><span class="glyphicon glyphicon-cart"></span>Add to Cart</a></center>
+                                     <input type="hidden" id="vpic<?php echo $res["id"]; ?>" value="<?php echo $res["vpic"]; ?>" /> 
+
+                                      <br>
+                                      <center>
+                                      <a id="<?php echo $res["id"]; ?>" type="submit" class="btn btn-success addCar"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                                      <a href="index.php" type="button" class="btn btn-danger "><span class="glyphicon glyphicon-home"></span></a>
+                                      </center>
                                   </ul>
                                 </div>
                             <?php
@@ -371,7 +378,16 @@ if(isset($_SESSION["userid"]))
                                             <tr>
                                                 <td><?php echo $res["id"]; ?></td>
                                                 <td><strong><?php echo $res["vcreation_date"]; ?></strong></td>
-                                                <td><span class="label label-info" ><?php echo $res["vorder_status"]; ?></span>
+                                                <td>
+                                                    
+                                                    <?php
+                                                        if($res["vorder_status"] == 'Delivered'){
+                                                            echo '<span class="label label-success">'.$res["vorder_status"].'</span>';
+                                                        }else{
+                                                            echo '<span class="label label-info">'.$res["vorder_status"].'</span>';
+                                                        }
+                                                    ?>
+                                                   
                                                 </td>
                                                 <td><a href="http://localhost/cars/cart2.php?id=<?php echo $res["id"]; ?>&user=<?php echo $res["vuser_id"]; ?>&date=<?php echo $res["vcreation_date"]; ?>&statuso=<?php echo $res["vorder_status"]; ?>" class="btn btn-primary btn-sm view" value>View</a>
                                                 </td>
@@ -386,7 +402,14 @@ if(isset($_SESSION["userid"]))
                                             <tr>
                                                 <td><?php echo $res["id"]; ?></td>
                                                 <td><strong><?php echo $res["vcreation_date"]; ?></strong></td>
-                                                <td><span class="label label-info"><?php echo $res["vorder_status"]; ?></span>
+                                                <td>
+                                                    <?php
+                                                        if($res["vorder_status"] == 'Delivered'){
+                                                            echo '<span class="label label-success">'.$res["vorder_status"].'</span>';
+                                                        }else{
+                                                            echo '<span class="label label-info">'.$res["vorder_status"].'</span>';
+                                                        }
+                                                    ?>
                                                 </td>
                                                 <td><a href="http://localhost/cars/cart2.php?id=<?php echo $res["id"]; ?>&user=<?php echo $res["vuser_id"]; ?>&date=<?php echo $res["vcreation_date"]; ?>&statuso=<?php echo $res["vorder_status"]; ?>" class="btn btn-primary btn-sm view" value>View</a>
                                                 </td>

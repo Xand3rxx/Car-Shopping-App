@@ -1,4 +1,4 @@
-# Basic Car Shopping Web App
+# Car Shopping App
 
 A simple car shopping web app with Admin dashboard created in PHP.
 
@@ -25,3 +25,4 @@ Due to the time I started this project, and I had a deadline to meet up with, so
 3. Non functional buttons.
 4. Session timer.
 Therefore, the project still needs more work
+
